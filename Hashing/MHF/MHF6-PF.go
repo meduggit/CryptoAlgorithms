@@ -1,14 +1,11 @@
 package main
 
 import (
-	"crypto/rand"
-	"encoding/hex"
-	"fmt"
+    "fmt"
+    "time"
 )
 
-/*
-HASHING FUNCTION BELOW
-*/
+const version string = "MHF6"
 
 func PadAndDivide(input []byte) [][]byte {
     // If the input is empty, start with just 0x01 and pad
@@ -130,46 +127,16 @@ func processing(input []byte, mode string) []byte {
 	return output	
 }
 
-/*
-COLISION FINDER
-*/
-
-// Function to find collisions
-func findCollision() {
-	seenHashes := make(map[string]string)
-
-	for {
-		randomString := randomHex(32) // Generate random 32-byte hexadecimal string
-
-		hashValue := processing([]byte(randomString), "FAST")
-		hashValueStr := hex.EncodeToString(hashValue) // Convert output to hexadecimal string
-
-		fmt.Println("Input:", randomString, "Value:", hashValueStr)
-
-		if existingInput, found := seenHashes[hashValueStr]; found {
-			// Collision found
-			fmt.Println("Collision found!")
-			fmt.Printf("Input 1: %s\n", existingInput)
-			fmt.Printf("Input 2: %s\n", randomString)
-			fmt.Printf("Hash Value: %s\n", hashValueStr)
-			break
-		} else {
-			seenHashes[hashValueStr] = randomString
-		}
-	}
-}
-
-// Function to generate random hexadecimal string
-func randomHex(length int) string {
-	bytes := make([]byte, length)
-	_, err := rand.Read(bytes)
-	if err != nil {
-		panic(err)
-	}
-	return hex.EncodeToString(bytes)
-}
-
 func main() {
-	// Run collision finder
-	findCollision()
+    MODE := "FAST" // FAST or PSWD
+	
+    input := []byte("cool test") // Example input
+    startDec := time.Now()
+    output := processing(input, MODE)
+    durationDec := time.Since(startDec)
+    fmt.Println("Output: ", output)
+    fmt.Println("Operation took:", durationDec)
+    fmt.Println(len(output))
 }
+
+//under dev
