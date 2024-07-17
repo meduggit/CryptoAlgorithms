@@ -1,3 +1,10 @@
+# This file is licensed under the GNU General Public License v3.0.
+# See LICENSE.md file for details.
+#
+# Copyright (c) meduggit 2024
+
+
+
 import os
 import time
 
@@ -72,7 +79,7 @@ def enhanced_hash(input_str, salting=False, salt_param=None, process_rounds=1, m
     return output
 
 # Test Setup
-print(enhanced_hash("The quick red fox, Jumped over the lazy black dog by the river.", salting=False, salt_param=None, process_rounds=1, mixing_rounds=2)) #1:2 or 120:350
+print(enhanced_hash("", salting=False, salt_param=None, process_rounds=1, mixing_rounds=2)) #1:2 or 120:350
 
 end_time = time.time()
 execution_time = end_time - start_time

@@ -1,3 +1,10 @@
+// This file is licensed under the GNU General Public License v3.0.
+// See LICENSE.md file for details.
+//
+// Copyright (c) meduggit 2024
+
+
+
 package main
 
 import (
@@ -130,7 +137,7 @@ func processing(input []byte, mode string) []byte {
 func main() {
     MODE := "FAST" // FAST or PSWD
 	
-    input := []byte("cool test") // Example input
+    input := []byte("") // Example input
     startDec := time.Now()
     output := processing(input, MODE)
     durationDec := time.Since(startDec)
