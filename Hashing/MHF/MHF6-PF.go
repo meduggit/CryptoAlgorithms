@@ -1,6 +1,6 @@
 /*
 Hashing Function Version 6
-Copyright (C) 2024 meduggit
+Copyright (C) 2024  meduggit
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,49 +16,40 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-
-
 package main
 
 import (
-    "fmt"
-    "time"
+	"encoding/hex"
+	"fmt"
+	"time"
 )
 
 const version string = "MHF6"
 
 func PadAndDivide(input []byte) [][]byte {
-    // If the input is empty, start with just 0x01 and pad
     if len(input) == 0 {
         input = []byte{0x01}
     }
 
-    // Calculate the original length
     originalLength := len(input)
 
-    // Calculate padding length
     paddingLength := 64 - (originalLength % 64)
     if paddingLength == 64 {
-        paddingLength = 0 // No padding needed if already a multiple of 64
+        paddingLength = 0
     }
 
-    // Create a padded slice of appropriate length
     padded := make([]byte, originalLength+paddingLength+1)
     copy(padded, input)
 
-    // Append 0x01
     padded[originalLength] = 0x01
 
-    // Fill remaining bytes with 0x00
     for i := originalLength + 1; i < len(padded); i++ {
         padded[i] = 0x00
     }
 
-    // Calculate number of 64-byte blocks
     blockCount := len(padded) / 64
     result := make([][]byte, blockCount)
 
-    // Divide into 64-byte slices
     for i := 0; i < blockCount; i++ {
         result[i] = padded[i*64 : (i+1)*64]
     }
@@ -148,15 +139,14 @@ func processing(input []byte, mode string) []byte {
 }
 
 func main() {
-    MODE := "FAST" // FAST or PSWD
+    MODE := "PSWD" // FAST or PSWD
 	
-    input := []byte("") // Example input
+    input := []byte("0")
     startDec := time.Now()
     output := processing(input, MODE)
     durationDec := time.Since(startDec)
     fmt.Println("Output: ", output)
+	fmt.Println("Hex Output: ", hex.EncodeToString(output))
     fmt.Println("Operation took:", durationDec)
     fmt.Println(len(output))
 }
-
-//under dev

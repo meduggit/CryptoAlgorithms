@@ -14,9 +14,6 @@
 #You should have received a copy of the GNU General Public License
 #along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
-
-
 import os
 import time
 
@@ -91,7 +88,7 @@ def enhanced_hash(input_str, salting=False, salt_param=None, process_rounds=1, m
     return output
 
 # Test Setup
-print(enhanced_hash("", salting=False, salt_param=None, process_rounds=1, mixing_rounds=2)) #1:2 or 120:350
+print(enhanced_hash("91231331232131", salting=False, salt_param=None, process_rounds=1, mixing_rounds=2)) #1:2 or 120:350
 
 end_time = time.time()
 execution_time = end_time - start_time
